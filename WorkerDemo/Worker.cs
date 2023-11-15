@@ -17,7 +17,7 @@ public class Worker : BackgroundService
 
         for (int i = 0; i < 20; i++)
         {
-            _tasks.Add(Task.Run(() =>
+            _tasks.Add(Task.Run(async () =>
             {
                 int iterations = 0;
                 for (int crt = 1; crt <= 2000000; crt++)
@@ -25,7 +25,7 @@ public class Worker : BackgroundService
                     stoppingToken.ThrowIfCancellationRequested();
                     iterations++;
 
-                    Task.Delay(500, stoppingToken);
+                    await Task.Delay(500, stoppingToken);
                 }
             }, stoppingToken));
         }
